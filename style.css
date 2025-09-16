@@ -1,0 +1,554 @@
+/* ============================================= */
+/* 전체 초기화 (Global Reset)                 */
+/* ============================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #fff;
+    color: #000;
+    overflow-x: hidden;
+}
+
+:root {
+  --header-height: 280px;
+}
+
+
+/* ============================================= */
+/* 헤더 스타일 (Header Styles)                */
+/* ============================================= */
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid #d6d6d6;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    position: relative; 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.main-menu {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center; 
+    gap: 40px;
+}
+
+/* 로고 위치를 메뉴 중앙에 배치 (로고를 메뉴의 일부로 취급) */
+.menu-item.logo-link {
+    /* 로고는 패딩 트릭이 필요 없으므로 0으로 설정 */
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.menu-item.logo-link img {
+    height: 30px;
+    display: block;
+}
+
+.menu-item {
+    position: relative;
+    /* ✅ 드롭다운이 사라지지 않도록 '다리' 역할 추가 */
+    padding-bottom: 20px;
+    margin-bottom: -20px;
+}
+
+.menu-item > a {
+    text-decoration: none;
+    color: #1d1d1f;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 0;
+    display: block;
+    cursor: pointer;
+    white-space: nowrap; /* 메뉴 이름이 길어도 줄바꿈 방지 */
+}
+
+/* 드롭다운 메뉴 스타일 (부드러운 애니메이션 적용) */
+.menu-item .dropdown {
+    position: absolute;
+    top: 50px; /* 헤더 높이와 거의 맞게 조정 */
+    left: 50%;
+    
+    min-width: 200px;
+    background-color: #fff;
+    border: 1px solid #d6d6d6;
+    border-radius: 8px;
+    padding: 8px 0;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    z-index: 999;
+    
+    /* ✅ display:none 대신 visibility와 opacity 사용 */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+/* 메뉴 항목에 마우스 호버 시 드롭다운 표시 */
+.menu-item:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(5px); /* 살짝 아래로 내려오는 효과 */
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px 20px;
+    color: #1d1d1f;
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.dropdown a:hover {
+    background-color: #f5f5f7;
+    color: #0066cc;
+    font-weight: 600;
+}
+
+/* ============================================= */
+/* 히어로 섹션 (Hero Section)                 */
+/* ============================================= */
+.hero-section {
+    padding: 100px 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fff 0%, #f5f5f5 100%);
+    transition: filter 0.4s ease; /* 블러 효과를 위한 transition */
+}
+
+/* 드롭다운 메뉴 활성화 시 히어로 섹션 블러 처리 */
+.hero-section.blurred {
+    filter: blur(8px);
+}
+
+/* ============================================= */
+/* 30-100-500 텍스트 (Hero Text)              */
+/* ============================================= */
+.hero-text {
+    position: absolute;
+    top: calc(60px + 50px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Dancing Script', cursive;
+    font-size: 40px;
+    color: #000;
+    z-index: 10;
+    display: flex;
+    gap: 5px;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
+
+.hero-text span {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.hero-text span.visible {
+    opacity: 1;
+}
+
+/* ============================================= */
+/* 히어로 콘텐츠 (Hero Content)               */
+/* ============================================= */
+.hero-content {
+    text-align: center;
+    margin-top: 80px;
+    margin-bottom: 60px;
+    padding: 0 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.hero-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, #000 0%, #333 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 30px;
+    letter-spacing: -0.02em;
+}
+
+.hero-links {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero-link {
+    color: #0066CC;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hero-link:hover {
+    color: #66B2FF;
+    transform: translateY(-1px);
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+}
+
+.hero-link:hover .arrow {
+    transform: translateX(4px);
+}
+
+/* ============================================= */
+/* 캐러셀 (Carousel)                          */
+/* ============================================= */
+.carousel-container {
+    max-width: 100vw;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+    margin-top: 160px;
+}
+
+.carousel-wrapper {
+    overflow: hidden;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+    height: calc(100vh - var(--header-height, 280px) - 20px);
+    min-height: 200px;
+    max-height: 800px;
+    display: flex;
+    align-items: center;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    align-items: center;
+    height: 100%;
+    gap: 0;
+}
+
+.carousel-slide {
+    min-width: 100vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    opacity: 0.3;
+    transition: all 0.8s ease;
+    transform: scale(0.8);
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.carousel-slide.prev,
+.carousel-slide.next {
+    opacity: 0.4;
+    transform: scale(0.85);
+}
+
+.carousel-slide:first-child.prev {
+    opacity: 0.2;
+    transform: scale(0.8);
+}
+
+.carousel-slide:last-child.next {
+    opacity: 0.2;
+    transform: scale(0.8);
+}
+
+.slide-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+}
+
+.slide-text {
+    text-align: center;
+    z-index: 10;
+    max-width: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.slide-text h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: inherit;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+}
+
+.slide-text p {
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    color: inherit;
+    font-weight: 500;
+    line-height: 1.4;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+}
+
+.slide-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-image:hover {
+    transform: scale(1.02);
+}
+
+.carousel-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 100;
+    padding: 10px 0;
+}
+
+.carousel-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+    width: 60px;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #000;
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.dot.active {
+    background: #000;
+    transform: scale(1.3);
+}
+
+.dot:not(.active):hover {
+    background: rgba(0, 0, 0, 0.7);
+    transform: scale(1.2);
+}
+
+.unified-control-btn {
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.unified-control-btn:hover {
+    border-color: #000;
+    transform: scale(1.1);
+}
+
+.unified-control-btn.playing .play-icon,
+.unified-control-btn.playing .resume-icon {
+    display: none;
+}
+
+.unified-control-btn:not(.playing) .pause-icon {
+    display: none;
+}
+
+.unified-control-btn.resume .play-icon,
+.unified-control-btn.resume .pause-icon {
+    display: none;
+}
+
+.unified-control-btn:not(.resume) .resume-icon {
+    display: none;
+}
+
+.play-icon,
+.pause-icon,
+.resume-icon {
+    font-size: 14px;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-3px);
+    }
+    60% {
+        transform: translateY(-1px);
+    }
+}
+
+.progress-bar.bounce {
+    animation: bounce 0.6s ease-in-out;
+}
+
+
+/* ============================================= */
+/* 반응형 디자인 (Responsive Design)             */
+/* ============================================= */
+@media (max-width: 768px) {
+    .hero-section {
+       padding-top: 80px !important;
+    }
+
+    .hero-text {
+        top: calc(60px + 20px);
+        font-size: 32px;
+    }
+    
+    .hero-content {
+        padding: 0 10px;
+        margin-top: 60px;
+    }
+
+    .hero-links {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .slide-content {
+        flex-direction: column;
+        gap: 20px;
+        justify-content: flex-end;
+        padding-bottom: 80px;
+    }
+    
+    .slide-text {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        max-width: 90%;
+        margin-bottom: 20px;
+        color: #000;
+        text-shadow: none;
+    }
+
+    .slide-text h2 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+    }
+
+    .slide-text p {
+        font-size: clamp(0.9rem, 2vw, 1.2rem);
+    }
+    
+    .carousel-slide {
+        height: calc(100vh - var(--header-height, 200px) - 60px);
+        min-height: 400px;
+        padding: 0;
+    }
+    
+    .carousel-controls {
+        flex-direction: row;
+        gap: 10px;
+        bottom: 10px;
+    }
+
+    .carousel-wrapper {
+        height: calc(100vh - var(--header-height, 200px) - 60px);
+    }
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Church Website with Apple Style Carousel</title>
+  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <nav class="main-menu">
+                <a href="/최종 테스트_이주환/index.html" class="logo-link menu-item">
+                    <img src="IMG/IMUSA_logo.png" alt="Church Logo" class="logo">
+                </a>
+
+                <div class="menu-item" id="aboutMenu">
+                    <a href="#">About us</a>
+                    <div class="dropdown">
+                        <a href="/About/Vision/최종본/index.html" data-page="vision">Vision of Our Church</a>
+                        <a href="/About/Beliefs/최종본/index.html" data-page="beliefs">Our Beliefs</a>
+                        <a href="/About/Team/최종본/index.html" data-page="team">Our Team</a>
+                        <a href="/About/location/index.html" data-page="location">Location</a>
+                    </div>
+                </div>
+                <div class="menu-item" id="worshipMenu">
+                    <a href="#">Worship</a>
+                    <div class="dropdown">
+                        <a href="/Worship/Sunday Worship/index.html" data-page="sunday-worship">Sunday Worship Service</a>
+                        <a href="/Worship/INTO Worship/index.html" data-page="into-worship">INTO Worship</a>
+                    </div>
+                </div>
+                <div class="menu-item" id="scheduleMenu">
+                    <a href="#">Schedule</a>
+                    <div class="dropdown">
+                        <a href="list-view.html" data-page="list-view">List View</a>
+                        <a href="calendar-view.html" data-page="calendar-view">Calendar View</a>
+                    </div>
+                </div>
+                <div class="menu-item" id="ministryMenu">
+                    <a href="#">Ministry</a>
+                    <div class="dropdown">
+                        <a href="kfd.html" data-page="kfd">KFD</a>
+                        <a href="first-friday.html" data-page="first-friday">First Friday</a>
+                        <a href="campus.html" data-page="campus">Campus</a>
+                        <a href="outreach.html" data-page="outreach">Outreach</a>
+                    </div>
+                </div>
+                <div class="menu-item" id="churchMenu">
+                    <a href="church.html" data-page="church">Church</a>
+                </div>
+                <div class="menu-item" id="connectMenu">
+                    <a href="connect.html" data-page="connect">Connect</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="header2">
+        <div class="header2-container">
+            <a href="/Worship/Sunday Worship/1.html">Sunday Worship Service</a>
+            <a href="/Worship/INTO Worship/1.html">INTO Worship</a>
+        </div>
+    </nav>
+    <div class="hero-text" id="heroText">30-100-500</div>
+<div class="hero-section">
+        <div class="carousel-container">
+            <div class="carousel-wrapper">
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="carousel-slide active">
+                        <div class="slide-content">
+                            <div class="slide-image">
+                                <img src="IMG/교회 main page.jpeg" alt="" class="product-image">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="slide-content">
+                            <div class="slide-image">
+                                <img src="IMG/1.JPG" alt="" class="product-image">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="slide-content">
+                            <div class="slide-image">
+                                <img src="IMG/2.JPG" alt="" class="product-image">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="slide-content">
+                            <div class="slide-image">
+                                <img src="IMG/3.JPG" alt=" " class="product-image">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="slide-content">
+                            <div class="slide-image">
+                                <img src="IMG/4.JPG" alt="" class="product-image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <div class="carousel-dots" id="carouselDots">
+                    </div>
+                <button class="unified-control-btn" id="unifiedControlBtn">
+                    <span class="play-icon">▶</span>
+                    <span class="pause-icon">⏸</span>
+                    <span class="resume-icon">↻</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+/* 전체 초기화 */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* 기본 스타일 (두 파일의 body 스타일 통합) */
+body {
+    background: #fff;
+    /* 폰트 설정을 이전 버전으로 변경 */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow: hidden; /* overflow-x와 중복되지만 더 포괄적이므로 유지 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================= Header 1 ================= */
+.header1 {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #F5F5F7;
+  z-index: 1000; /* backdrop보다 높게 설정 */
+  padding: 10px 0;
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.logo-link img {
+  height: 35px;
+  width: auto;
+}
+
+.main-menu {
+  display: flex;
+  gap: 40px;
+}
+
+.menu-item {
+  position: relative;
+}
+
+.menu-item > a {
+  text-decoration: none;
+  color: #1d1d1f;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 0;
+  display: block;
+  cursor: pointer;
+}
+
+/* 드롭다운 */
+.menu-item .dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  border: 1px solid #d6d6d6;
+  border-radius: 6px;
+  min-width: 200px;
+  max-height: 400px;
+  padding: 8px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 50;
+  overflow: visible;
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover .dropdown {
+  display: block;
+  animation: dropdownFade 0.3s ease forwards;
+}
+
+/* 드롭다운 메뉴 항목 폰트 스타일 조정 */
+.dropdown a {
+  display: block;
+  padding: 8px 20px;
+  color: #1d1d1f;      /* 폰트 색상 */
+  text-decoration: none;
+  font-size: 13px;     /* 폰트 크기 */
+  font-weight: 500;    /* 폰트 굵기 */
+  transition: all 0.2s ease;
+}
+
+.dropdown a:hover {
+  background-color: #e8e8ed;
+  color: #0066cc;
+  transform: scale(1.05);
+}
+
+@keyframes dropdownFade {
+  from { opacity: 0; transform: translateY(-10px) translateX(-50%);}
+  to { opacity: 1; transform: translateY(0) translateX(-50%);}
+}
+
+/* ================= Header 2 ================= */
+.header2 {
+  position: fixed;
+  top: 55px; /* header1 높이에 맞게 조정 */
+  width: 100%;
+  background-color: #fff;
+  z-index: 999; /* header1보단 낮게 */
+  text-align: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.header2-container {
+  display: inline-flex;
+  gap: 60px;
+}
+
+.header2 a {
+  text-decoration: none;
+  color: #1d1d1f;
+  font-weight: 500;
+  font-size: 18px;
+  transition: transform 0.2s ease, color 0.2s ease;
+  display: inline-block;
+  position: relative;
+}
+
+.header2 a:hover {
+  color: #0066cc;
+  transform: scale(1.05);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0.6; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= Main Content Wrapper (Optional) ================= */
+/* 필요시 콘텐츠를 헤더 아래로 내리기 위한 클래스 */
+.content {
+  margin-top: 140px;
+  text-align: center;
+  padding: 20px;
+}
+
+
+/* ================= Page Title Header ================= */
+.header {
+    background: #F5F5F5;
+    padding: 16px 36px;
+    margin-top: 120px; /* 고정 헤더들과 겹치지 않도록 마진 추가 */
+    margin-bottom: 48px;
+    border-radius: 18px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #1d1d1f;
+    letter-spacing: -0.022em;
+    /* 뉴모피즘 스타일 */
+    box-shadow: 
+        8px 8px 16px rgba(0, 0, 0, 0.1),
+        -8px -8px 16px rgba(255, 255, 255, 0.7),
+        inset 2px 2px 4px rgba(0, 0, 0, 0.05);
+    border: none;
+    text-align: center;
+    min-width: 280px;
+}
+
+/* ================= Carousel ================= */
+.carousel-container {
+    width: 100%;
+    max-width: 1200px;
+    height: 450px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: grab;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #F5F5F5;
+    /* 뉴모피즘 스타일 */
+    box-shadow: 
+        12px 12px 24px rgba(0, 0, 0, 0.1),
+        -12px -12px 24px rgba(255, 255, 255, 0.8),
+        inset 3px 3px 6px rgba(0, 0, 0, 0.05);
+    border: none;
+}
+
+.carousel-track {
+    display: flex;
+    position: absolute;
+    height: 100%;
+    align-items: center;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+.carousel-card {
+    width: 400px;
+    height: 225px;
+    margin: 0 20px;
+    border-radius: 24px;
+    background-size: cover;
+    background-position: center;
+    transform-origin: center;
+    will-change: transform, box-shadow, opacity;
+    transition: all 450ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    background-color: #F5F5F5;
+    position: relative;
+    overflow: hidden;
+    /* 뉴모피즘 스타일 */
+    box-shadow: 
+        6px 6px 12px rgba(0, 0, 0, 0.1),
+        -6px -6px 12px rgba(255, 255, 255, 0.7),
+        inset 2px 2px 4px rgba(0, 0, 0, 0.05);
+    border: none;
+}
+
+.carousel-card:not(.zoomed):hover {
+    transform: translateY(-8px) scale(1.02);
+    /* 뉴모피즘 호버 효과 */
+    box-shadow: 
+        8px 8px 16px rgba(0, 0, 0, 0.15),
+        -8px -8px 16px rgba(255, 255, 255, 0.8),
+        inset 3px 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* ================= Zoomed Card & Backdrop ================= */
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: none;
+}
+
+.backdrop.active {
+    opacity: 1;
+    backdrop-filter: blur(20px);
+}
+
+.carousel-card.zoomed {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 80vw;
+    height: 45vw;
+    max-width: 1100px;
+    max-height: 618.75px;
+    transform: translate(-50%, -50%) scale(1);
+    transform-origin: center center;
+    backface-visibility: hidden;
+    z-index: 101;
+    border-radius: 28px;
+    background-color: #F5F5F5;
+    /* 뉴모피즘 줌 효과 */
+    box-shadow: 
+        20px 20px 40px rgba(0, 0, 0, 0.2),
+        -20px -20px 40px rgba(255, 255, 255, 0.9),
+        inset 4px 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+}
