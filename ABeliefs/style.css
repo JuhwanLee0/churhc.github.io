@@ -1,0 +1,303 @@
+/* ================= Global Settings & Variables ================= */
+:root {
+  /* CSS 변수 선언 */
+  --header1-height: 60px;
+  --header2-height: 54px;
+  --sidebar-width: 260px;
+  --sidebar-right-gap: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background:#f5f5f5;
+  overflow-x: hidden;
+}
+
+/* ================= Main Content Layout ================= */
+.content {
+  /* 헤더 높이만큼 상단 여백 추가 */
+  margin-top: calc(var(--header1-height) + var(--header2-height));
+  /* [개선] 사이드바 겹침 방지를 위한 오른쪽 여백 추가 */
+  margin-right: calc(var(--sidebar-width) + var(--sidebar-right-gap) + 20px);
+  text-align: center;
+  padding: 20px;
+}
+
+/* ================= Header 1 ================= */
+.header1 {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: var(--header1-height); /* 변수 사용 */
+  background-color: #F5F5F7;
+  z-index: 100;
+  display: flex; /* padding 대신 flex로 중앙 정렬 */
+  align-items: center;
+  justify-content: center;
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.logo-link img {
+  height: 35px;
+  width: auto;
+}
+
+.main-menu {
+  display: flex;
+  gap: 40px;
+}
+
+.menu-item {
+  position: relative;
+}
+
+.menu-item > a {
+  text-decoration: none;
+  color: #1d1d1f;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 0;
+  display: block;
+  cursor: pointer;
+}
+
+.menu-item .dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  border: 1px solid #d6d6d6;
+  border-radius: 6px;
+  min-width: 200px;
+  padding: 8px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 50;
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover .dropdown {
+  display: block;
+  animation: dropdownFade 0.3s ease forwards;
+}
+
+.dropdown a {
+  display: block;
+  padding: 8px 20px;
+  color: #1d1d1f;
+  text-decoration: none;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.dropdown a:hover {
+  background-color: #e8e8ed;
+}
+
+@keyframes dropdownFade {
+  from { opacity: 0; transform: translateY(-10px) translateX(-50%);}
+  to { opacity: 1; transform: translateY(0) translateX(-50%);}
+}
+
+/* ================= Header 2 ================= */
+.header2 {
+  position: fixed;
+  top: var(--header1-height);
+  width: 100%;
+  height: var(--header2-height);
+  background-color: #fff;
+  z-index: 90;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header2-container {
+  display: inline-flex;
+  gap: 60px;
+}
+
+.header2 a {
+  text-decoration: none;
+  color: #1d1d1f;
+  font-weight: 400;
+  font-size: 18px;
+  /* [수정] transform도 애니메이션 대상에 추가 */
+  transition: transform 0.2s ease, color 0.2s ease; 
+}
+
+.header2 a:hover {
+  color: #0066cc;
+  /* [추가] 마우스를 올렸을 때 1.05배 커지는 효과 */
+  transform: scale(1.05); 
+}
+
+/* ================= Sidebar Indicator ================= */
+.sidebar-nav {
+  position: fixed;
+  /* 헤더 전체 높이 + 추가 여유 */
+  top: calc(var(--header1-height) + var(--header2-height) + 30px);
+  right: var(--sidebar-right-gap); /* 변수 사용 */
+  width: var(--sidebar-width); /* 변수 사용 */
+  padding: 20px;
+  border-radius: 30px;
+  background: #f5f5f5;
+  box-shadow: 8px 8px 20px rgba(0,0,0,0.1), -8px -8px 20px rgba(255,255,255,0.7);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  max-height: calc(100vh - (var(--header1-height) + var(--header2-height) + 60px));
+  overflow-y: auto;
+}
+
+.progress-background, .progress-fill {
+  position:absolute;
+  left:20px;
+  top:20px;
+  width:6px;
+  border-radius:3px;
+}
+.progress-background {
+  height:calc(100% - 40px);
+  background:#e0e0e0;
+}
+.progress-fill {
+  background:black;
+  z-index:1;
+  transition: height 0.3s ease;
+}
+
+.current-indicator {
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:black;
+  position:absolute;
+  left:23px;
+  transform: translateX(-50%);
+  transition: top 0.3s ease;
+  z-index:2;
+}
+
+.nav-item {
+  position: relative;
+  display:flex;
+  align-items:center;
+  cursor:pointer;
+  padding:6px 15px;
+  border-radius:15px;
+  background:#f5f5f5;
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.1), -3px -3px 8px rgba(255,255,255,0.7);
+  transition: transform 0.2s, box-shadow 0.3s;
+  width: calc(100% - 30px);
+  margin-left: 10px;
+}
+.nav-item:hover {
+  transform: translateX(-5px);
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.15), -2px -2px 6px rgba(255,255,255,0.8);
+}
+.nav-item .text {
+  font-size:0.9em;
+  white-space:nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.nav-item.active .text { font-weight:700; }
+
+/* ================= Sections & Content Formatting ================= */
+section {
+  min-height:100vh;
+  padding:80px 10%;
+  margin-bottom:30px;
+  background:#fff;
+  border-radius:15px;
+  box-shadow:8px 8px 20px rgba(0,0,0,0.05), -8px -8px 20px rgba(255,255,255,0.8);
+}
+
+h2 { font-size:1.8em; margin-bottom:20px; }
+section p { font-size: 1.1em; line-height: 1.8; margin-bottom: 20px; }
+
+hr.divider {
+  border: none;
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 25px 0;
+}
+
+section h3 {
+  font-size: 1.3em;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.scripture-references {
+  column-count: 2;
+  column-gap: 40px;
+  font-size: 0.95em;
+  color: #666;
+  line-height: 1.7;
+}
+/* ================= Title Box (What We Believe) ================= */
+.title-box {
+  /* [변경] 상하 여백만 남기고, 좌우 중앙 정렬 속성 제거 */
+  margin-top: 0;
+  margin-bottom: 40px;
+
+  /* [삭제] 중앙 정렬을 위한 최대 너비와 auto 마진 제거 */
+  /* max-width: 900px; */
+  /* margin-left: auto; */
+  /* margin-right: auto; */
+
+  /* [변경] 내부 여백을 section과 동일한 비율(10%)로 설정하여 왼쪽 정렬 */
+  padding: 60px 10%;
+  
+  /* 뉴포미즘 스타일 유지 */
+  background: #f5f5f5;
+  border-radius: 20px;
+  box-shadow: 8px 8px 20px rgba(0,0,0,0.1), 
+              -8px -8px 20px rgba(255,255,255,0.7);
+
+  text-align: left;
+}
+
+
+/* ================= Media Queries ================= */
+@media (max-width: 1024px) {
+  .scripture-references {
+    column-count: 2;
+  }
+}
+
+@media (max-width:768px) {
+  /* [개선] 모바일에서는 사이드바가 겹치지 않으므로 오른쪽 여백 제거 */
+  .content {
+    margin-right: 0;
+  }
+  .sidebar-nav {
+    display: none; /* 모바일에서는 사이드바를 숨기는 것을 추천 */
+  }
+  .header2-container {gap: 30px;}
+  .scripture-references {
+    column-count: 1;
+  }
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team - Church Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header1">
+  <div class="header-container">
+    <a href="../index.html" class="logo-link">
+      <img src="IMG/IMUSA_logo.png" alt="Church Logo" class="logo">
+    </a>
+    <nav class="main-menu">
+      <div class="menu-item" id="aboutMenu">
+        <a href="#">About us</a>
+        <div class="dropdown">
+          <a href="../AVision/index.html">Vision of Our Church</a>
+          <a href="../ABeliefs/index.html">Our Beliefs</a>
+          <a href="../ATeam/index.html">Our Team</a>
+          <a href="../ALocation/index.html">Location</a>
+        </div>
+      </div>
+      <div class="menu-item" id="worshipMenu">
+        <a href="#">Worship</a>
+        <div class="dropdown">
+          <a href="../Sunday Worship/index.html">Sunday Worship</a>
+          <a href="../INTO Worship/index.html">INTO Worship</a>
+        </div>
+      </div>
+      <div class="menu-item" id="scheduleMenu">
+        <a href="#">Schedule</a>
+        <div class="dropdown">
+          <a href="../schedule/list-view.html">List View</a>
+          <a href="../schedule/calendar-view.html">Calendar View</a>
+        </div>
+      </div>
+      <div class="menu-item" id="ministryMenu">
+        <a href="#">Ministry</a>
+        <div class="dropdown">
+          <a href="../Mkfd/kfd.html">KFD</a>
+          <a href="../Mfirst/first-friday.html">First Friday</a>
+          <a href="../Mcampus/campus.html">Campus</a>
+          <a href="../Moutreach/outreach.html">Outreach</a>
+        </div>
+      </div>
+      <div class="menu-item" id="churchMenu">
+        <a href="../church/church.html">Church</a>
+      </div>
+      <div class="menu-item" id="connectMenu">
+        <a href="../connect/connect.html">Connect</a>
+      </div>
+    </nav>
+  </div>
+</header>
+    <nav class="header2">
+ <div class="header2-container">
+  <a href="../AVision/index.html">Vision</a>
+  <a href="../ABeliefs/index.html">Our Beliefs</a>
+  <a href="../ATeam/index.html">Our Team</a>
+  <a href="../ALocation/index.html" class="active">Location</a>
+</div>
+</nav>
+
+    <hr class="divider">
+
+    <section class="team-section">
+        <div class="section-container">
+            <h2 class="section-title">Get to know our team</h2>
+            <div class="team-grid">
+                
+                <div class="team-card" data-modal-target="modal-kim">
+                    <div class="card-header">
+                        <p>Lead Pastor</p>
+                        <h3>Moses Yu</h3>
+                    </div>
+                    <div class="card-image-container">
+                        <img id="pastor-moses-img" src="IMG/Ptr.Moses.png"> 
+                    </div>
+                    <div class="plus-button">+</div>
+                </div>
+
+                <div class="team-card" data-modal-target="modal-lee">
+                    <div class="card-header">
+                        <p>Director of IM USA Mission</p>
+                        <h3>Juliet Jeon</h3>
+                    </div>
+                    <div class="card-image-container">
+                        <img src="IMG/M.Juliet.jpg" alt="Juliet Jeon" img id="MJuliet-img">
+                    </div>
+                    <div class="plus-button">+</div>
+                </div>
+
+                <div class="team-card" data-modal-target="modal-park">
+                    <div class="card-header">
+                        <p>Worship Team</p>
+                        <h3>BattleCry</h3>
+                    </div>
+                    <div class="card-image-container">
+                        <img src="IMG/BattleCry.JPG" alt="BattleCry Worship Team" img id="BC-img">
+                    </div>
+                    <div class="plus-button">+</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-container">
+        <div id="modal-kim" class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="modal-inner">
+                <p class="modal-category">Lead Pastor</p>
+                <h2 class="modal-title">one<br>sentence</h2>
+                <div class="modal-description">
+                    <p>hallelujah </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-lee" class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="modal-inner">
+                <p class="modal-category">IM USA Mission Director</p>
+                <h2 class="modal-title">Missionary Juliet</h2>
+                <p class="modal-tagline">“In a temporary world, fulfill an eternal calling.”</p>
+                <div class="history-section">
+                    <ul class="history-list">
+                        <li><strong>2012 - 2016</strong> IM KOREA IEM Sicence/English/Math Teacher</li>
+                        <li><strong>2016.12 - 2018.04</strong> IM KOREA IEM Director</li>
+                        <li><strong>2018.04 - 2020.04</strong> IM KOREA TCS Director</li>
+                        <li><strong>2021.02 - 2023.09</strong> IMUSA Education Director (NJ)</li>
+                        <li><strong>2023.09 - Present</strong> IMUSA Director (TX)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-park" class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="modal-inner">
+                <p class="modal-category">BattleCry</p>
+                <h2 class="modal-title">One<br>Sentence</h2>
+                <div class="modal-description">
+                    <p>Brief Intoduction about BattleCry Team</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+/* 전체 초기화 */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ================= Header 1 ================= */
+.header1 {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #F5F5F7;
+  z-index: 100;
+  padding: 10px 0;
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.logo-link img {
+  height: 35px;
+  width: auto;
+}
+
+.main-menu {
+  display: flex;
+  gap: 40px;
+}
+
+.menu-item {
+  position: relative;
+}
+
+.menu-item > a {
+  text-decoration: none;
+  color: #1d1d1f;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 0;
+  display: block;
+  cursor: pointer;
+}
+
+/* 드롭다운 */
+.menu-item .dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  border: 1px solid #d6d6d6;
+  border-radius: 6px;
+  min-width: 200px;
+  max-height: 400px;
+  padding: 8px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 50;
+  overflow: visible;
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover .dropdown {
+  display: block;
+  animation: dropdownFade 0.3s ease forwards;
+}
+
+.dropdown a {
+  display: block;
+  padding: 8px 20px;
+  color: #1d1d1f;
+  text-decoration: none;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.dropdown a:hover {
+  background-color: #e8e8ed;
+  color: #0066cc;
+  transform: scale(1.05);
+}
+
+@keyframes dropdownFade {
+  from { opacity: 0; transform: translateY(-10px) translateX(-50%);}
+  to { opacity: 1; transform: translateY(0) translateX(-50%);}
+}
+
+/* ================= Header 2 ================= */
+
+.header2 {
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  background-color: #fff;
+  z-index: 90;
+  text-align: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #000;
+}
+
+.header2-container {
+  display: inline-flex;
+  gap: 60px;
+}
+
+.header2 a {
+  text-decoration: none;
+  color: #1d1d1f;
+  font-weight: 400;  /* 기본 regular */
+  font-size: 18px;
+  transition: all 0.3s ease;
+  display: inline-block;
+  position: relative;
+}
+
+.header2 a {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.header2 a:hover {
+  color: #0066cc;
+  transform: scale(1.05); /* 1.1보다 조금만 확대 */
+}
+
+/* 애니메이션 keyframes */
+@keyframes fadeUp {
+  from {
+    opacity: 0.6;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.map-box {
+  margin-top: 300px;  /* 지도만 아래로 떨어뜨림 */
+  width: 100%;
+  height: 400px;     /* 고정 높이 유지 */
+}
+.map-box iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.text-box {
+  position: relative;
+  left: 40px;      /* 왼쪽 끝에서 띄움 */
+  top: 200px;      /* 위쪽에서 띄움 */
+  
+  /* 상자 스타일 */
+  background-color: rgba(255, 255, 255, 0.8); /* 반투명 흰색 배경 */
+  padding: 15px 20px;  /* 글씨 주변 여백 */
+  border-radius: 12px; /* 둥근 모서리 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 그림자 */
+  max-width: 300px;    /* 상자 최대 너비 */
+  font-family: Arial, sans-serif;
+
+  /* 클릭 가능 표시 및 효과 */
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.text-box:active {
+  background-color: rgba(255, 255, 255, 1); /* 클릭 시 강조 */
+}
+#toast {
+  visibility: hidden; /* 기본적으로 숨김 */
+  min-width: 150px;
+  background-color: rgba(0,0,0,0.8);
+  color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  padding: 12px 16px;
+  position: fixed; /* 화면 기준 위치. JS가 좌표를 잡아주므로 fixed가 편리합니다. */
+  z-index: 1000;
+  font-size: 14px;
+  opacity: 0;
+  
+  /* 부드러운 효과를 위한 transition */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+  /* 위치는 JS에서 설정하므로 top, right, bottom, left 속성을 여기서 제거합니다. */
+  /* transform의 초기값을 설정해두면 애니메이션에 도움이 됩니다. */
+  transform: translateY(10px); 
+}
+
+#toast.show {
+  visibility: visible;
+  opacity: 1;
+  /* translateY 값을 JS에서 덮어쓸 것이므로 여기서는 opacity만 제어합니다. */
+  /* transform: translateY(0); 이 부분을 아래 JS에서 처리하도록 변경합니다. */
+}
+.text-box p {
+  display: inline-flex;      /* 텍스트와 이미지 가로 배치 */
+  align-items: center;       /* 수직 가운데 정렬 */
+  gap: 6px;                  /* 텍스트와 이미지 사이 간격 */
+  margin: 0;                 /* 불필요한 여백 제거 */
+}
+
+.text-box p img {
+  width: 16px;               /* 아이콘 가로 크기 */
+  height: 16px;              /* 아이콘 세로 크기 */
+  cursor: pointer;           /* 클릭 가능 표시 */
+  vertical-align: middle;    /* 텍스트와 세로 정렬 */
+}

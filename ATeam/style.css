@@ -1,0 +1,402 @@
+/* ===============================================
+   1. 기본 및 전체 설정
+=============================================== */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f5f5f7;
+  color: #1d1d1f;
+  overflow-x: hidden;
+}
+
+/* ===============================================
+   2. 헤더 (Header 1 & 2)
+=============================================== */
+.header1 {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(245, 245, 247, 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  z-index: 100;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.logo-link img {
+  height: 35px;
+  width: auto;
+  display: block;
+}
+.main-menu {
+  display: flex;
+  gap: 40px;
+}
+.menu-item {
+  position: relative;
+}
+.menu-item > a {
+  text-decoration: none;
+  color: #1d1d1f;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 0;
+  display: block;
+}
+.menu-item .dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  background-color: #fff;
+  border-radius: 8px;
+  min-width: 200px;
+  padding: 8px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 50;
+  opacity: 0;
+  transform: translateX(-50%) translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.menu-item:hover .dropdown {
+  display: block;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.dropdown a {
+  display: block;
+  padding: 10px 20px;
+  color: #1d1d1f;
+  text-decoration: none;
+  font-size: 13px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.dropdown a:hover {
+  background-color: #0071e3;
+  color: #fff;
+}
+.header2 {
+  position: fixed;
+  top: 56px;
+  width: 100%;
+  background-color: #fff;
+  z-index: 90;
+  text-align: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #ddd;
+}
+.header2-container {
+  display: inline-flex;
+  gap: 60px;
+}
+.header2 a {
+  display: inline-block;
+  text-decoration: none;
+  color: #333;
+  font-weight: 400; 
+  font-size: 18px;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s ease;
+}
+.header2 a:hover {
+  color: #0071e3;
+  transform: scale(1.1);
+}
+.header2 a.active {
+  color: #1d1d1f;
+  transform: scale(1.05);
+  font-weight: 400; 
+}
+
+/* ===============================================
+   3. 메인 콘텐츠 (팀 소개 섹션)
+=============================================== */
+.team-section {
+    padding: 140px 20px 100px 20px;
+}
+.section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.section-title {
+    font-size: 56px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 60px;
+}
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* ===============================================
+   3-1. 팀 카드 스타일
+=============================================== */
+.team-card {
+    background-color: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 550px;
+}
+.team-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+.card-header {
+    padding: 24px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+}
+.card-header p {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #6e6e73;
+    margin: 0 0 4px 0;
+}
+.card-header h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin: 0;
+}
+.card-image-container {
+    flex-grow: 1;
+    overflow: hidden;
+}
+.team-card img {
+    width: 100%;
+    height: 100%;
+    /* [핵심] contain -> cover 로 변경하여 이미지가 컨테이너를 가득 채우도록 합니다. */
+    object-fit: cover; 
+    transition: transform 0.4s ease;
+}
+.team-card:hover img {
+    transform: scale(1.05);
+}
+.plus-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    z-index: 3;
+    transition: transform 0.3s ease;
+}
+.team-card:hover .plus-button {
+    transform: scale(1.1);
+}
+
+/* ===============================================
+   4. 모달 (팝업)
+=============================================== */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-container.active {
+    opacity: 1;
+    visibility: visible;
+}
+.modal-content {
+    background-color: #fff;
+    color: #1d1d1f;
+    border-radius: 28px;
+    width: 90%;
+    max-width: 900px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    transform: scale(0.98);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-height: 85vh;
+    overflow-y: auto;
+}
+.modal-content.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    position: relative;
+}
+.modal-close-button {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    font-size: 24px;
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    z-index: 10;
+}
+.modal-close-button:hover {
+    transform: scale(1.1);
+}
+.modal-inner {
+    padding: 60px;
+    text-align: center;
+}
+.modal-category {
+    font-size: 15px;
+    font-weight: 500;
+    color: #6e6e73;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 10px 0;
+}
+.modal-title {
+    font-size: 56px;
+    font-weight: 600;
+    line-height: 1.1;
+    margin: 0 0 20px 0;
+}
+.modal-tagline {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #888;
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto 40px;
+}
+.modal-description {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.modal-description p {
+    font-size: 21px;
+    line-height: 1.6;
+    margin: 0;
+}
+.history-section {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #e5e5e5;
+}
+.history-list {
+    list-style: none;
+    padding-left: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: left;
+}
+.history-list li {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 1rem;
+}
+.history-list li strong {
+    flex-shrink: 0;
+    width: 180px;
+    padding-right: 25px;
+    text-align: right;
+    font-weight: 500;
+    color: #888;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .team-section {
+        padding-top: 120px;
+    }
+    .modal-inner {
+        padding: 50px 25px;
+    }
+    .modal-title {
+        font-size: 40px;
+    }
+    .modal-description p {
+        font-size: 17px;
+    }
+    .history-list li {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 5px;
+    }
+    .history-list li strong {
+        text-align: center;
+        width: auto;
+        padding-right: 0;
+    }
+}
+/* 모달 활성화 시 배경 처리 */
+body.modal-open {
+    overflow: hidden;
+}
+.modal-open .team-section {
+    filter: blur(8px);
+    pointer-events: none;
+}
+/* 개별 이미지 위치 및 스타일 조절 */
+#pastor-moses-img {
+  /* 이미지 세로 위치를 20% 지점으로 맞춰 아래로 내립니다. (값 조절 가능) */
+  object-position: 50% 20%; 
+  
+  /* 기존에 HTML에 있던 확대 스타일을 CSS로 옮겨왔습니다. */
+  transform: scale(1.4); 
+}
+/* 개별 이미지 위치 및 스타일 조절 */
+#pastor-moses-img {
+  /* 이미지 세로 위치를 20% 지점으로 맞춰 아래로 내립니다. (값 조절 가능) */
+  object-position: 50% 39%; 
+  
+  /* 기존에 HTML에 있던 확대 스타일을 CSS로 옮겨왔습니다. */
+  transform: scale(1.18); 
+}
+/* 개별 이미지 위치 및 스타일 조절 */
+#MJuliet-img {
+  /* 이미지 세로 위치를 20% 지점으로 맞춰 아래로 내립니다. (값 조절 가능) */
+  object-position:  50% 39%; 
+  
+  /* 기존에 HTML에 있던 확대 스타일을 CSS로 옮겨왔습니다. */
+  transform: scale(1.01); 
+}
+/* 개별 이미지 위치 및 스타일 조절 */
+#BC-img {
+  /* 기존에 HTML에 있던 확대 스타일을 CSS로 옮겨왔습니다. */
+  transform: scale(1); 
+}
+

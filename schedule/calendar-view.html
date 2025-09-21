@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Church Website - Schedule</title>
+  
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      overflow-x: hidden;
+      background-color: #fff;
+    }
+
+    /* ================= Header 1 ================= */
+    .header1 {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #F5F5F7;
+      z-index: 100;
+      padding: 10px 0;
+      backdrop-filter: blur(10px);
+      background-color: rgba(245, 245, 247, 0.9);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .logo-link img {
+      height: 35px;
+      width: auto;
+    }
+
+    .main-menu {
+      display: flex;
+      gap: 40px;
+    }
+
+    .menu-item {
+      position: relative;
+    }
+
+    .menu-item > a {
+      text-decoration: none;
+      color: #1d1d1f;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 0;
+      display: block;
+      cursor: pointer;
+    }
+
+    /* 드롭다운 */
+    .menu-item .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #fff;
+      border: 1px solid #d6d6d6;
+      border-radius: 6px;
+      min-width: 200px;
+      max-height: 400px;
+      padding: 8px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 50;
+      overflow: visible;
+      transition: all 0.3s ease;
+    }
+
+    .menu-item:hover .dropdown {
+      display: block;
+      animation: dropdownFade 0.3s ease forwards;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 8px 20px;
+      color: #1d1d1f;
+      text-decoration: none;
+      font-size: 13px;
+      transition: all 0.2s ease;
+    }
+
+    .dropdown a:hover {
+      background-color: #e8e8ed;
+      color: #0066cc;
+      transform: scale(1.05);
+    }
+
+    @keyframes dropdownFade {
+      from { opacity: 0; transform: translateY(-10px) translateX(-50%);}
+      to { opacity: 1; transform: translateY(0) translateX(-50%);}
+    }
+
+    /* ================= Header 2 ================= */
+    .header2 {
+      position: fixed;
+      top: 60px;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 90;
+      text-align: center;
+      padding: 15px 0;
+      border-bottom: 1px solid #000;
+    }
+
+    .header2-container {
+      display: inline-flex;
+      gap: 60px;
+    }
+
+    .header2 a {
+      text-decoration: none;
+      color: #1d1d1f;
+      font-weight: 400;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+    }
+
+    /* ================= Main Content ================= */
+    .content {
+      margin-top: 140px; /* 헤더1+헤더2 높이 감안 */
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 20px;
+    }
+
+    /* Calendar Styles */
+    .container {
+      background-color: transparent;
+      padding: 2rem;
+      width: 100%;
+      max-width: 800px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0;
+      text-align: center;
+      color: #1d1d1f;
+    }
+
+    .view-section {
+      padding-top: 1rem;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1rem;
+      gap: 30px;
+    }
+
+    .nav-button {
+      background: #c5c5c5;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-button:hover {
+      background: #1f3b5e;
+      transform: scale(1.1);
+    }
+
+    .nav-button:active {
+      transform: scale(0.95);
+    }
+
+    .current-month-year {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #1d1d1f;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    .calendar {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .day-names {
+      display: grid;
+      grid-template-columns: 1fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 1fr;
+      background-color: #b6b8bd;
+      font-weight: bold;
+      text-align: center;
+      color: white;
+    }
+
+    .day-names div {
+      padding: 0.75rem 0;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: 1fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 1fr;
+      background-color: #fff;
+      border-left: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+    }
+
+    .day {
+      background-color: #fff;
+      padding: 8px;
+      min-height: 100px;
+      position: relative;
+      border-right: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.2s ease;
+    }
+
+    .day:hover {
+      background-color: #f8f9fa;
+    }
+
+    .day:nth-child(7n) {
+      border-right: none;
+    }
+
+    .day.has-event {
+      background-color: #fbfbfb;
+    }
+
+    .day.has-event:hover {
+      background-color: #e6f2ff;
+    }
+
+    .day.empty-day {
+      background-color: #f9f9f9;
+      pointer-events: none;
+    }
+
+    .day-number {
+      text-align: right;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 4px;
+      flex-shrink: 0;
+      font-size: 0.95em;
+    }
+
+    .events-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .event {
+      font-size: 0.75em;
+      padding: 2px 4px;
+      background-color: #dadada;
+      color: white;
+      border-radius: 3px;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.2;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .event:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Different colors for different event types */
+    .event.worship {
+      background-color: #4262b3;
+    }
+
+    .event.kfd {
+      background-color: #4375ff;
+    }
+
+    .event.gathering {
+      background-color: #42a5f5;
+    }
+
+    .event.mission {
+      background-color: #4759bc;
+    }
+
+    .event.first-friday {
+      background-color: #2660ff;
+    }
+
+    /* ================= Dynamic Header Background ================= */
+    .header1,
+    .header2 {
+      transition: background-color 0.3s ease;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .container {
+        max-width: 100%;
+        padding: 1rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .day {
+        min-height: 80px;
+        padding: 4px;
+      }
+      
+      .event {
+        font-size: 0.7em;
+        padding: 1px 3px;
+      }
+
+      .calendar-header {
+        gap: 15px;
+      }
+      
+      .nav-button {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================= Header 1 ================= -->
+<header class="header1">
+        <div class="header-container">
+            <a href="../0메인 페이지/index.html" class="logo-link">
+                <img src="IMUSA_logo.png" alt="Church Logo" class="logo">
+            </a>
+            <nav class="main-menu">
+                <div class="menu-item" id="aboutMenu">
+                    <a href="#">About us</a>
+                    <div class="dropdown">
+                        <a href="../about-us/vision.html">Vision of Our Church</a>
+                        <a href="../about-us/our_beliefs/1.html">Our Beliefs</a>
+                        <a href="../about-us/team.html">Our Team</a>
+                        <a href="../about-us/location/1.html">Location</a>
+                    </div>
+                </div>
+                    <div class="menu-item" id="worshipMenu">
+                        <a href="../worship/sunday-worship.html">Worship</a>
+                        <div class="dropdown">
+                        <a href="../worship/sunday-worship.html">Sunday Worship</a>
+                        <a href="../worship/into-worship.html">INTO Worship</a>
+                        </div>
+                    </div>
+                    <div class="menu-item" id="scheduleMenu">
+                        <a href="calendar-view.html">Schedule</a>
+                        <div class="dropdown">
+                        <a href="list-view.html">List View</a>
+                        <a href="calendar-view.html">Calendar View</a>
+                        </div>
+                    </div>
+                    <div class="menu-item" id="ministryMenu">
+                        <a href="../ministry/imusa/imusa.html">Ministry</a>
+                        <div class="dropdown">
+                        <a href="../ministry/kfd/kfd.html">KFD</a>
+                        <a href="../ministry/first-friday/first-friday.html">First Friday</a>
+                        <a href="../ministry/campus/campus.html">Campus</a>
+                        <a href="../ministry/outreach/outreach.html">Outreach</a>
+                        <a href="../ministry/imusa/imusa.html">IMUSA</a>
+                        </div>
+                    </div>
+                    <div class="menu-item" id="churchMenu">
+                        <a href="../church/church.html">Church</a>
+                        </div>
+                    <div class="menu-item" id="connectMenu">
+                        <a href="../connect/connect.html">Connect</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+<!-- ================= Header 2 ================= -->
+<nav class="header2">
+  <div class="header2-container">
+    <a href="list-view.html">List View</a>
+    <a href="calendar-view.html">Calendar View</a>
+  </div>
+</nav>
+
+<!-- ================= Main Content with Calendar ================= -->
+<main class="content">
+  <div class="container">
+    <h1>This Month at IM FBC</h1>
+
+    <!-- Calendar View -->
+    <div id="calendar-view" class="view-section">
+      <div class="calendar-header">
+        <button class="nav-button" id="prev-month">‹</button>
+        <div class="current-month-year" id="current-month-year">September, 2025</div>
+        <button class="nav-button" id="next-month">›</button>
+      </div>
+      <div class="calendar">
+        <div class="day-names">
+          <div>Sun</div>
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+        </div>
+        <div class="calendar-grid" id="calendar-grid">
+          <!-- Calendar days will be generated here by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // ================= Header2 현재 페이지 활성화 =================
+    const header2Links = document.querySelectorAll('.header2 a');
+    let currentPath = window.location.pathname;
+
+    currentPath = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+
+    header2Links.forEach(link => {
+      link.classList.remove('active');
+      let linkPath = link.getAttribute('href');
+      linkPath = linkPath.substring(linkPath.lastIndexOf('/') + 1);
+      if (linkPath === currentPath) {
+        link.classList.add('active');
+      }
+    });
+
+    // ================= Header1 드롭다운 애니메이션 유지 =================
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        const dropdown = item.querySelector('.dropdown');
+        if (dropdown) {
+          dropdown.style.display = 'block';
+        }
+      });
+      item.addEventListener('mouseleave', () => {
+        const dropdown = item.querySelector('.dropdown');
+        if (dropdown) {
+          dropdown.style.display = 'none';
+        }
+      });
+    });
+
+    // ================= Dynamic Header Background =================
+    window.addEventListener('scroll', () => {
+      const header1 = document.querySelector('.header1');
+      const header2 = document.querySelector('.header2');
+      
+      if (window.scrollY > 100) {
+        header1.style.background = 'rgba(245, 245, 247, 0.95)';
+        header2.style.background = 'rgba(255, 255, 255, 0.95)';
+      } else {
+        header1.style.background = 'rgba(245, 245, 247, 0.9)';
+        header2.style.background = 'rgba(255, 255, 255, 0.9)';
+      }
+    });
+
+    // ================= Calendar Navigation and Rendering =================
+    const calendarGrid = document.getElementById('calendar-grid');
+    const monthYearDisplay = document.getElementById('current-month-year');
+    const prevButton = document.getElementById('prev-month');
+    const nextButton = document.getElementById('next-month');
+    
+    let currentMonth = 8; // September (0-indexed)
+    let currentYear = 2025;
+    
+    const monthNames = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    // Navigation event listeners
+    prevButton.addEventListener('click', () => {
+      currentMonth--;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      renderCalendar(currentMonth, currentYear);
+    });
+
+    nextButton.addEventListener('click', () => {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      renderCalendar(currentMonth, currentYear);
+    });
+
+    // Function to get first Friday of a month
+    function getFirstFriday(year, month) {
+      const firstDay = new Date(year, month, 1);
+      const firstFriday = new Date(firstDay);
+      const dayOfWeek = firstDay.getDay();
+      const daysToAdd = dayOfWeek <= 5 ? 5 - dayOfWeek : 12 - dayOfWeek;
+      firstFriday.setDate(firstDay.getDate() + daysToAdd);
+      return firstFriday.getDate();
+    }
+
+    // Function to get all Sundays in a month
+    function getSundays(year, month) {
+      const sundays = [];
+      const date = new Date(year, month, 1);
+      
+      // Find first Sunday
+      while (date.getDay() !== 0) {
+        date.setDate(date.getDate() + 1);
+      }
+      
+      // Collect all Sundays
+      while (date.getMonth() === month) {
+        sundays.push(date.getDate());
+        date.setDate(date.getDate() + 7);
+      }
+      
+      return sundays;
+    }
+
+    // Function to get all Fridays in a month
+    function getFridays(year, month) {
+      const fridays = [];
+      const date = new Date(year, month, 1);
+      
+      // Find first Friday
+      while (date.getDay() !== 5) {
+        date.setDate(date.getDate() + 1);
+      }
+      
+      // Collect all Fridays
+      while (date.getMonth() === month) {
+        fridays.push(date.getDate());
+        date.setDate(date.getDate() + 7);
+      }
+      
+      return fridays;
+    }
+
+    // Function to get all Saturdays in a month
+    function getSaturdays(year, month) {
+      const saturdays = [];
+      const date = new Date(year, month, 1);
+      
+      // Find first Saturday
+      while (date.getDay() !== 6) {
+        date.setDate(date.getDate() + 1);
+      }
+      
+      // Collect all Saturdays
+      while (date.getMonth() === month) {
+        saturdays.push(date.getDate());
+        date.setDate(date.getDate() + 7);
+      }
+      
+      return saturdays;
+    }
+
+    function generateEvents(year, month) {
+      const events = [];
+      
+      // Get recurring event dates
+      const sundays = getSundays(year, month);
+      const fridays = getFridays(year, month);
+      const saturdays = getSaturdays(year, month);
+      const firstFriday = getFirstFriday(year, month);
+      
+      // Add Sunday events (DNA-12 and Sunday Worship)
+      sundays.forEach(sunday => {
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(sunday).padStart(2, '0')}`;
+        events.push({ date: dateStr, type: 'worship', name: 'DNA-12', time: '11:30 AM - 12:30 PM' });
+        events.push({ date: dateStr, type: 'worship', name: 'Sunday Worship', time: '1:00 PM - 3:00 PM' });
+      });
+
+      // Add Friday Into Worship events
+      fridays.forEach(friday => {
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(friday).padStart(2, '0')}`;
+        events.push({ date: dateStr, type: 'worship', name: 'Into Worship', time: '8:00 PM - 10:00 PM' });
+      });
+
+      // Add First Friday events
+      const firstFridayStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(firstFriday).padStart(2, '0')}`;
+      events.push({ date: firstFridayStr, type: 'first-friday', name: 'First Friday', time: '7:00 PM - 10:00 PM' });
+
+      // Add Saturday Fellowship Activities
+      saturdays.forEach(saturday => {
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(saturday).padStart(2, '0')}`;
+        events.push({ date: dateStr, type: 'gathering', name: 'Fellowship Activity', time: '4:00 PM - 9:00 PM' });
+      });
+
+      // Add specific historical and future events
+      
+      // KBD - March 1, 2025
+      if (year === 2025 && month === 2) {
+        events.push({ date: '2025-03-01', type: 'kfd', name: 'KBD (Korean BBQ Day)', time: '4:00 PM - 9:00 PM' });
+      }
+
+      // Historical KFD events
+      if (year === 2025 && month === 3) { // April
+        events.push({ date: '2025-04-19', type: 'kfd', name: 'KFD', time: '4:00 PM - 9:00 PM' });
+        // KFD Preparation (week before KFD, replaces Fellowship Activity)
+        const kfdPrepDate = '2025-04-12';
+        // Remove fellowship activity for that day and add preparation
+        const fellowshipIndex = events.findIndex(e => e.date === kfdPrepDate && e.name === 'Fellowship Activity');
+        if (fellowshipIndex !== -1) {
+          events.splice(fellowshipIndex, 1);
+        }
+        events.push({ date: kfdPrepDate, type: 'gathering', name: 'KFD Preparation', time: '4:00 PM - 9:00 PM' });
+      }
+
+      if (year === 2025 && month === 4) { // May
+        events.push({ date: '2025-05-17', type: 'kfd', name: 'KFD', time: '4:00 PM - 9:00 PM' });
+        // KFD Preparation
+        const kfdPrepDate = '2025-05-10';
+        const fellowshipIndex = events.findIndex(e => e.date === kfdPrepDate && e.name === 'Fellowship Activity');
+        if (fellowshipIndex !== -1) {
+          events.splice(fellowshipIndex, 1);
+        }
+        events.push({ date: kfdPrepDate, type: 'gathering', name: 'KFD Preparation', time: '4:00 PM - 9:00 PM' });
+      }
+
+      // LA Mission Trip July 7-19, 2025
+      if (year === 2025 && month === 6) { // July
+        for (let day = 7; day <= 19; day++) {
+          const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+          const dayOfWeek = new Date(year, month, day).getDay();
+          
+          // Remove regular events during mission trip
+          const existingEventIndex = events.findIndex(e => e.date === dateStr);
+          if (existingEventIndex !== -1) {
+            events.splice(existingEventIndex, 1);
+          }
+          
+          // Add mission trip event
+          if (day === 7) {
+            events.push({ date: dateStr, type: 'mission', name: 'LA Mission Trip', time: 'All Day' });
+          } else if (day === 19) {
+            events.push({ date: dateStr, type: 'mission', name: 'Mission Trip End', time: 'All Day' });
+          } else if (dayOfWeek === 0 || dayOfWeek === 6) { // Sundays and Saturdays
+            events.push({ date: dateStr, type: 'mission', name: 'Mission Trip', time: 'All Day' });
+          }
+        }
+      }
+
+      // September 2025 - Current month with confirmed KFD
+      if (year === 2025 && month === 8) { // September
+        events.push({ date: '2025-09-13', type: 'kfd', name: 'KFD', time: '4:00 PM - 9:00 PM' });
+        // KFD Preparation on Saturday September 6th (not replacing Sunday fellowship)
+        events.push({ date: '2025-09-06', type: 'gathering', name: 'KFD Preparation', time: '4:00 PM - 9:00 PM' });
+        // Remove the regular fellowship activity for Sept 6 since it's replaced by KFD prep
+        const fellowshipIndex = events.findIndex(e => e.date === '2025-09-06' && e.name === 'Fellowship Activity');
+        if (fellowshipIndex !== -1) {
+          events.splice(fellowshipIndex, 1);
+        }
+      }
+
+      return events;
+    }
+
+    function renderCalendar(month, year) {
+      const events = generateEvents(year, month);
+      
+      calendarGrid.innerHTML = '';
+      monthYearDisplay.textContent = `${monthNames[month]}, ${year}`;
+      
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const startingDay = firstDay.getDay();
+
+      // 빈칸 채우기 (시작 요일 맞추기)
+      for (let i = 0; i < startingDay; i++) {
+        const emptyDay = document.createElement('div');
+        emptyDay.classList.add('day', 'empty-day');
+        calendarGrid.appendChild(emptyDay);
+      }
+
+      // 날짜 채우기
+      for (let i = 1; i <= lastDay.getDate(); i++) {
+        const dayElement = document.createElement('div');
+        dayElement.classList.add('day');
+        
+        // 날짜 번호 컨테이너
+        const dayNumber = document.createElement('div');
+        dayNumber.classList.add('day-number');
+        dayNumber.textContent = i;
+        dayElement.appendChild(dayNumber);
+
+        // 이벤트 컨테이너
+        const eventsContainer = document.createElement('div');
+        eventsContainer.classList.add('events-container');
+        dayElement.appendChild(eventsContainer);
+
+        const fullDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+        const dayEvents = events.filter(event => event.date === fullDate);
+
+        if (dayEvents.length > 0) {
+          dayElement.classList.add('has-event');
+          dayEvents.forEach(event => {
+            const eventElement = document.createElement('div');
+            eventElement.classList.add('event', event.type);
+            eventElement.textContent = event.name;
+            eventElement.title = `${event.name} - ${event.time}`; // 툴팁
+            eventsContainer.appendChild(eventElement);
+          });
+        }
+
+        calendarGrid.appendChild(dayElement);
+      }
+    }
+
+    // Initial render
+    renderCalendar(currentMonth, currentYear);
+  });
+</script>
+
+</body>
+</html>
