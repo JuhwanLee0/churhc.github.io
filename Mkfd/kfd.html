@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Ministries-KFD</title>
+    <style>
+        /* ============================
+           전체 스타일 (헤더 + 본문)
+           ============================ */
+
+        /* --- reset / base --- */
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #000000;
+            background: #fff;
+            overflow-x: hidden;
+        }
+
+        /* --- Main Content Container --- */
+        .content {
+            margin-top: 140px; /* 헤더1+헤더2 높이 감안 */
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 48px 20px 28px;
+        }
+
+        /* --- headings / subtitle --- */
+        .center { text-align: center; }
+        h1 { margin: 0 0 8px; font-size: 32px; }
+        .subtitle { color: #ffffff; margin: 6px 0 36px; }
+
+        /* ============================
+           헤더 1 (메인 메뉴)
+           ============================ */
+        .header1 {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #F5F5F7;
+            z-index: 100;
+            padding: 10px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+        }
+
+        /* 헤더 로고 스타일 - 네모 배경 제거 */
+    .logo-link img {
+      height: 35px;
+      width: auto;
+    }
+
+        .main-menu {
+            display: flex;
+            gap: 40px;
+        }
+
+        .menu-item {
+            position: relative;
+        }
+
+        .menu-item > a {
+            text-decoration: none;
+            color: #1d1d1f;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 0;
+            display: block;
+            cursor: pointer;
+        }
+
+        /* 드롭다운 */
+        .menu-item .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            border: 1px solid #d6d6d6;
+            border-radius: 6px;
+            min-width: 200px;
+            max-height: 400px;
+            padding: 8px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 50;
+            overflow: visible;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover .dropdown {
+            display: block;
+            animation: dropdownFade 0.3s ease forwards;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 8px 20px;
+            color: #1d1d1f;
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown a:hover {
+            background-color: #e8e8ed;
+            color: #0066cc;
+            transform: scale(1.05);
+        }
+
+        @keyframes dropdownFade {
+            from { opacity: 0; transform: translateY(-10px) translateX(-50%);}
+            to { opacity: 1; transform: translateY(0) translateX(-50%);}
+        }
+
+        /* ============================
+           헤더 2 (서브 메뉴)
+           ============================ */
+        .header2 {
+            position: fixed;
+            top: 60px;
+            width: 100%;
+            background-color: #fff;
+            z-index: 90;
+            text-align: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #000;
+        }
+
+        .header2-container {
+            display: inline-flex;
+            gap: 60px;
+        }
+
+        .header2 a {
+            text-decoration: none;
+            color: #1d1d1f;
+            font-weight: 400;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+        }
+
+        /* ============================
+           KFD 축제 스타일 - Scrollytelling
+           ============================ */
+
+        :root {
+            --korean-red: #000000;
+            --korean-gold: #5d5d5d;
+            --korean-orange: #d3d3d3;
+            --korean-green: #ffffff;
+            --korean-blue: #ffffff;
+            --warm-white: #e3e3e3;
+            --festival-shadow: rgba(255, 255, 255, 0.15);
+        }
+
+        /* 메인 컨테이너 재정의 */
+        .kfd-container {
+            width: 100%;
+            background: linear-gradient(180deg, 
+                var(--warm-white) 0%, 
+                rgba(255, 255, 255, 0.1) 50%, 
+                var(--warm-white) 100%);
+        }
+
+        /* 히어로 섹션 */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(255, 255, 255, 0.15) 50%, 
+                rgba(255, 255, 255, 0.1) 100%);
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(255, 255, 255, 0.15) 50%, 
+                rgba(255, 255, 255, 0.1) 100%);
+            animation: festivalGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes festivalGlow {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        .kfd-logo {
+            width: 300px;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px var(--festival-shadow);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            z-index: 2;
+        }
+
+        .kfd-logo:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 30px 80px var(--festival-shadow);
+        }
+
+        .hero-title {
+            font-size: clamp(4rem, 12vw, 8rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, 
+                var(--korean-red) 0%, 
+                var(--korean-gold) 50%, 
+                var(--korean-orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 40px 0 20px;
+            letter-spacing: -0.02em;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--korean-red);
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Sticky 섹션들 */
+        .sticky-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+        }
+
+        .story-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .story-text {
+            z-index: 2;
+        }
+
+        .story-visual {
+            position: relative;
+            z-index: 1;
+        }
+
+        .story-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--korean-red), var(--korean-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .story-description {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            line-height: 1.7;
+            color: #000000;
+            margin-bottom: 40px;
+        }
+
+        .festival-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 
+                0 25px 50px var(--festival-shadow),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .festival-card:hover {
+            transform: perspective(1000px) rotateY(0deg) scale(1.02);
+            box-shadow: 
+                0 35px 70px var(--festival-shadow),
+                0 0 0 2px var(--korean-gold);
+        }
+
+        .festival-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.05) 0%, 
+                rgba(247, 247, 255, 0.05) 100%);
+            border-radius: 24px;
+            z-index: -1;
+        }
+
+        /* 반응형 */
+        @media (max-width: 1024px) {
+            .story-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            .festival-card {
+                transform: none;
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section { padding: 0 20px; }
+            .kfd-logo { width: 200px; height: 140px; }
+            .story-container { padding: 0 20px; }
+            .festival-card { padding: 24px; }
+        }
+
+        /* 스크롤 트리거 섹션들 */
+        .scroll-section {
+            height: 200vh;
+            position: relative;
+        }
+
+        .scroll-section:nth-child(even) {
+            background: linear-gradient(45deg, 
+                rgba(255, 255, 255, 0.05) 0%, 
+                rgba(255, 255, 255, 0.05) 100%);
+        }
+
+        .scroll-section:nth-child(odd) {
+            background: linear-gradient(-45deg, 
+                rgba(255, 255, 255, 0.05) 0%, 
+                rgba(255, 255, 255, 0.05) 100%);
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+    <!-- ================= Header 1 ================= -->
+<header class="header1">
+  <div class="header-container">
+    <a href="../index.html" class="logo-link">
+      <img src="IMG/IMUSA_logo.png" alt="Church Logo" class="logo">
+    </a>
+    <nav class="main-menu">
+      <div class="menu-item" id="aboutMenu">
+        <a href="#">About us</a>
+        <div class="dropdown">
+          <a href="../AVision/index.html">Vision of Our Church</a>
+          <a href="../ABeliefs/index.html">Our Beliefs</a>
+          <a href="../ATeam/index.html">Our Team</a>
+          <a href="../ALocation/index.html">Location</a>
+        </div>
+      </div>
+      <div class="menu-item" id="worshipMenu">
+        <a href="#">Worship</a>
+        <div class="dropdown">
+          <a href="../Sunday Worship/index.html">Sunday Worship</a>
+          <a href="../INTO Worship/index.html">INTO Worship</a>
+        </div>
+      </div>
+      <div class="menu-item" id="scheduleMenu">
+        <a href="#">Schedule</a>
+        <div class="dropdown">
+          <a href="../schedule/list-view.html">List View</a>
+          <a href="../schedule/calendar-view.html">Calendar View</a>
+        </div>
+      </div>
+      <div class="menu-item" id="ministryMenu">
+        <a href="#">Ministry</a>
+        <div class="dropdown">
+          <a href="../Mkfd/kfd.html">KFD</a>
+          <a href="../Mfirst/first-friday.html">First Friday</a>
+          <a href="../Mcampus/campus.html">Campus</a>
+          <a href="../Moutreach/outreach.html">Outreach</a>
+        </div>
+      </div>
+      <div class="menu-item" id="churchMenu">
+        <a href="../church/church.html">Church</a>
+      </div>
+      <div class="menu-item" id="connectMenu">
+        <a href="../connect/connect.html">Connect</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= Header 2 ================= -->
+<nav class="header2">
+        <div class="header2-container">
+            <a href="../Mkfd/kfd.html">KFD</a>
+            <a href="../Mfirst/first-friday.html">First-Friday</a>
+            <a href="../Mcampus/campus.html">Campus</a>            
+            <a href="../Moutreach/outreach.html">Outreach</a>
+            <a href="../Mimusa/imusa.html">IMUSA</a>
+        </div>
+    </nav>
+
+    <!-- ================= Main Content ================= -->
+    <main class="kfd-container">
+        <!-- 히어로 섹션 -->
+        <section class="hero-section">
+            <img src="../kfd/KFD.jpg" alt="KFD Logo" class="kfd-logo">
+            
+            <h1 class="hero-title">KFD</h1>
+            <p class="hero-subtitle">Korean Food Day</p>
+        </section>
+
+        <!-- 스토리 섹션 1: Mission -->
+        <div class="scroll-section">
+            <div class="sticky-section">
+                <div class="story-container">
+                    <div class="story-text">
+                        <div class="festival-card">
+                            <h2 class="story-title">Our Mission</h2>
+                            <p class="story-description">
+                                KFD is not simply a small festival or event organized by foreigners. Its purpose is to share IM USA's mission and vision, encourage people to join in, and ultimately, create disciples who become like Jesus.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="story-visual">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 스토리 섹션 2: Culture -->
+        <div class="scroll-section">
+            <div class="sticky-section">
+                <div class="story-container">
+                    <div class="story-visual">
+                    </div>
+                    <div class="story-text">
+                        <div class="festival-card">
+                            <h2 class="story-title">Culture & Faith</h2>
+                            <p class="story-description">
+                                Through authentic Korean cuisine and traditional games, we bridge cultures and share God's love. Every dish tells a story, every gathering builds community, and every moment celebrates the diversity of God's kingdom.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 스토리 섹션 3: Community -->
+        <div class="scroll-section">
+            <div class="sticky-section">
+                <div class="story-container">
+                    <div class="story-text">
+                        <div class="festival-card">
+                            <h2 class="story-title">Building Community</h2>
+                            <p class="story-description">
+                                From welcoming to worship services, KFD creates spaces where hearts connect, friendships bloom, and the gospel spreads naturally through genuine relationships and shared experiences.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="story-visual">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // ================= 히어로 섹션 애니메이션 =================
+            const heroTl = gsap.timeline();
+
+            heroTl.fromTo('.kfd-logo', 
+                { scale: 0.8, opacity: 0, y: 50 },
+                { scale: 1, opacity: 1, y: 0, duration: 1.2, ease: "power3.out" }
+            )
+            .fromTo('.hero-title', 
+                { scale: 0.9, opacity: 0, y: 30 },
+                { scale: 1, opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "-=0.6"
+            )
+            .fromTo('.hero-subtitle', 
+                { opacity: 0, y: 20 },
+                { opacity: 0.9, y: 0, duration: 0.8, ease: "power2.out" }, "-=0.4"
+            );
+
+            // ================= Sticky 섹션 애니메이션 =================
+            const storyCards = document.querySelectorAll('.festival-card');
+            
+            storyCards.forEach((card, index) => {
+                const isEven = index % 2 === 0;
+                
+                gsap.fromTo(card,
+                    { 
+                        x: isEven ? -100 : 100,
+                        opacity: 0,
+                        rotationY: isEven ? -15 : 15
+                    },
+                    {
+                        x: 0,
+                        opacity: 1,
+                        rotationY: 0,
+                        duration: 1.2,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top 70%",
+                            end: "bottom 30%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
+
+            // ================= 스크롤 트리거 패럴랙스 =================
+            gsap.utils.toArray('.sticky-section').forEach((section, i) => {
+                gsap.to(section, {
+                    y: -50,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1
+                    }
+                });
+            });
+
+            // ================= Header2 현재 페이지 활성화 =================
+            const header2Links = document.querySelectorAll('.header2 a');
+            let currentPath = window.location.pathname;
+            currentPath = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+
+            header2Links.forEach(link => {
+                link.classList.remove('active');
+                let linkPath = link.getAttribute('href');
+                linkPath = linkPath.substring(linkPath.lastIndexOf('/') + 1);
+
+                if (linkPath === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+
+            // ================= Header1 드롭다운 애니메이션 유지 =================
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    const dropdown = item.querySelector('.dropdown');
+                    if (dropdown) {
+                        dropdown.style.display = 'block';
+                    }
+                });
+                item.addEventListener('mouseleave', () => {
+                    const dropdown = item.querySelector('.dropdown');
+                    if (dropdown) {
+                        dropdown.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
