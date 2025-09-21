@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Ministries-Outreach</title>
+    <style>
+        /* ============================
+           전체 스타일 (헤더 + 본문)
+           ============================ */
+
+        /* --- reset / base --- */
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #111;
+            background: #fff;
+            overflow-x: hidden;
+        }
+
+        /* --- Main Content Container --- */
+        .content {
+            margin-top: 140px; /* 헤더1+헤더2 높이 감안 */
+        }
+
+        /* ============================
+           헤더 1 (메인 메뉴)
+           ============================ */
+        .header1 {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #F5F5F7;
+            z-index: 100;
+            padding: 10px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+        }
+
+        /* 헤더 로고 스타일 - 네모 배경 제거 */
+    .logo-link img {
+      height: 35px;
+      width: auto;
+    }
+
+        .main-menu {
+            display: flex;
+            gap: 40px;
+        }
+
+        .menu-item {
+            position: relative;
+        }
+
+        .menu-item > a {
+            text-decoration: none;
+            color: #1d1d1f;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 0;
+            display: block;
+            cursor: pointer;
+        }
+
+        /* 드롭다운 */
+        .menu-item .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            border: 1px solid #d6d6d6;
+            border-radius: 6px;
+            min-width: 200px;
+            max-height: 400px;
+            padding: 8px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 50;
+            overflow: visible;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover .dropdown {
+            display: block;
+            animation: dropdownFade 0.3s ease forwards;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 8px 20px;
+            color: #1d1d1f;
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown a:hover {
+            background-color: #e8e8ed;
+            color: #0066cc;
+            transform: scale(1.05);
+        }
+
+        @keyframes dropdownFade {
+            from { opacity: 0; transform: translateY(-10px) translateX(-50%);}
+            to { opacity: 1; transform: translateY(0) translateX(-50%);}
+        }
+
+        /* ============================
+           헤더 2 (서브 메뉴)
+           ============================ */
+        .header2 {
+            position: fixed;
+            top: 60px;
+            width: 100%;
+            background-color: #fff;
+            z-index: 90;
+            text-align: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #000;
+        }
+
+        .header2-container {
+            display: inline-flex;
+            gap: 60px;
+        }
+
+        .header2 a {
+            text-decoration: none;
+            color: #1d1d1f;
+            font-weight: 400;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+        }
+
+        /* ============================
+           SCROLLYTELLING 스타일
+           ============================ */
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            background: linear-gradient(135deg, #fcfdff 0%, #f6f6f6 50%, #f1f1f1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: rgb(0, 0, 0);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 40px;
+            animation: fadeInUp 1.5s ease;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #ffffff, #000000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .hero-vision {
+            font-size: 1.3rem;
+            font-style: italic;
+            opacity: 0.8;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Floating particles */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.2)"/><circle cx="40" cy="80" r="1.5" fill="rgba(255,255,255,0.15)"/><circle cx="90" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="90" r="2" fill="rgba(255,255,255,0.05)"/></svg>') repeat;
+            animation: float 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-100px); }
+        }
+
+        /* Story Sections */
+        .story-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .story-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .story-text {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 1s ease;
+        }
+
+        .story-text.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .story-visual {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 1s ease;
+        }
+
+        .story-visual.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .section-number {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #000000;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+
+        .section-description {
+            font-size: 1.3rem;
+            line-height: 1.7;
+            color: #000000;
+            margin-bottom: 2rem;
+        }
+
+        /* 섹션 2, 3의 텍스트 색상을 검정색으로 변경 */
+        .story-section:nth-child(3) .section-number,
+        .story-section:nth-child(4) .section-number {
+            color: #1d1d1f;
+        }
+
+        .story-section:nth-child(3) .section-title,
+        .story-section:nth-child(4) .section-title {
+            color: #1d1d1f;
+        }
+
+        .story-section:nth-child(3) .section-description,
+        .story-section:nth-child(4) .section-description {
+            color: #1d1d1f;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #ededed, #ffffff);
+            padding: 40px;
+            border-radius: 20px;
+            border-left: 6px solid #f6f9ff;
+            margin: 2rem 0;
+        }
+
+        .highlight-text {
+            font-size: 1.4rem;
+            color: #404040;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        /* Visual Elements */
+        .visual-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(30, 58, 138, 0.1);
+        }
+
+        .visual-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #f0f0f0, #ffffff);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            background: linear-gradient(135deg, #f0f0f0 0%, #ffffff 100%);
+        }
+
+        .mission-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin: 3rem 0;
+        }
+
+        .mission-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.08);
+            text-align: center;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .mission-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(255, 255, 255, 0.15);
+        }
+
+        .mission-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #f0f0f0, #ffffff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            color: rgb(0, 0, 0);
+            font-size: 2.5rem;
+        }
+
+        .mission-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1b1e4b;
+            margin-bottom: 1rem;
+        }
+
+        .mission-text {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            background: linear-gradient(135deg, #f9fbff 0%, #ffffff 50%, #fcfcff 100%);
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 120px 0;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .cta-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .cta-text {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #000000;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .story-content {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .mission-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-title {
+                font-size: 2.5rem;
+            }
+            
+            .story-container,
+            .cta-content {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ================= Header 1 ================= -->
+<header class="header1">
+  <div class="header-container">
+    <a href="../index.html" class="logo-link">
+      <img src="IMG/IMUSA_logo.png" alt="Church Logo" class="logo">
+    </a>
+    <nav class="main-menu">
+      <div class="menu-item" id="aboutMenu">
+        <a href="#">About us</a>
+        <div class="dropdown">
+          <a href="../AVision/index.html">Vision of Our Church</a>
+          <a href="../ABeliefs/index.html">Our Beliefs</a>
+          <a href="../ATeam/index.html">Our Team</a>
+          <a href="../ALocation/index.html">Location</a>
+        </div>
+      </div>
+      <div class="menu-item" id="worshipMenu">
+        <a href="#">Worship</a>
+        <div class="dropdown">
+          <a href="../Sunday Worship/index.html">Sunday Worship</a>
+          <a href="../INTO Worship/index.html">INTO Worship</a>
+        </div>
+      </div>
+      <div class="menu-item" id="scheduleMenu">
+        <a href="#">Schedule</a>
+        <div class="dropdown">
+          <a href="../schedule/list-view.html">List View</a>
+          <a href="../schedule/calendar-view.html">Calendar View</a>
+        </div>
+      </div>
+      <div class="menu-item" id="ministryMenu">
+        <a href="#">Ministry</a>
+        <div class="dropdown">
+          <a href="../Mkfd/kfd.html">KFD</a>
+          <a href="../Mfirst/first-friday.html">First Friday</a>
+          <a href="../Mcampus/campus.html">Campus</a>
+          <a href="../Moutreach/outreach.html">Outreach</a>
+        </div>
+      </div>
+      <div class="menu-item" id="churchMenu">
+        <a href="../church/church.html">Church</a>
+      </div>
+      <div class="menu-item" id="connectMenu">
+        <a href="../connect/connect.html">Connect</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= Header 2 ================= -->
+<nav class="header2">
+        <div class="header2-container">
+            <a href="../Mkfd/kfd.html">KFD</a>
+            <a href="../Mfirst/first-friday.html">First-Friday</a>
+            <a href="../Mcampus/campus.html">Campus</a>            
+            <a href="../Moutreach/outreach.html">Outreach</a>
+            <a href="../Mimusa/imusa.html">IMUSA</a>
+        </div>
+    </nav>
+
+    <!-- ================= Main Content ================= -->
+    <main class="content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Outreach & Mission</h1>
+                <p class="hero-subtitle">Extending God's Love Beyond Boundaries</p>
+                <div class="hero-vision">
+                    "I am willing to go anywhere at any time, to do anything for Jesus Christ."
+                </div>
+            </div>
+        </section>
+
+        <!-- Story Section 1: Our Vision -->
+        <section class="story-section">
+            <div class="story-container">
+                <div class="story-content">
+                    <div class="story-text">
+                        <div class="section-number">01 / Our Vision</div>
+                        <h2 class="section-title">A Heart for the Lost</h2>
+                        <p class="section-description">
+                            Our vision transcends geographical boundaries and cultural barriers. We believe that every person deserves to experience God's unconditional love and grace, regardless of their circumstances or background.
+                        </p>
+                        <div class="highlight-box">
+                            <p class="highlight-text">"True discipleship means being willing to step out of our comfort zones and into the places where God's love is needed most."</p>
+                        </div>
+                    </div>
+                    <div class="story-visual">
+                        <div class="visual-card">
+                            <div class="visual-icon">🌍</div>
+                            <h3>Global Impact</h3>
+                            <p>From local streets to international borders, our mission knows no limits.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Story Section 2: Our Goals -->
+        <section class="story-section mission-section">
+            <div class="story-container">
+                <div class="story-content">
+                    <div class="story-visual">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number">30</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">100</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">500</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="story-text">
+                        <div class="section-number">02 / Our Goals</div>
+                        <h2 class="section-title">Two-Fold Mission</h2>
+                        <p class="section-description">
+                            Our ministry is built on two foundational goals that reflect Christ's heart for both immediate needs and long-term transformation.
+                        </p>
+                        <div class="mission-cards">
+                            <div class="mission-card">
+                                <div class="mission-icon">✝️</div>
+                                <h3 class="mission-title">Spiritual Feeding Services</h3>
+                                <p class="mission-text">Providing hope, and human dignity to those having hard time in our community.</p>
+                            </div>
+                            <div class="mission-card">
+                                <div class="mission-icon">🏠</div>
+                                <h3 class="mission-title">Global Mission Center</h3>
+                                <p class="mission-text">Establishing a comprehensive support system for people from many nations seeking God, and a holy community.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Story Section 3: Our Journey -->
+        <section class="story-section">
+            <div class="story-container">
+                <div class="story-content">
+                    <div class="story-text">
+                        <div class="section-number">03 / Our Journey</div>
+                        <h2 class="section-title">Guided by Prayer</h2>
+                        <p class="section-description">
+                            Before embarking on LA mission, we committed ourselves to fervent prayer, seeking God's wisdom and protection. Every step of our journey is anchored in faith and guided by divine providence.
+                        </p>
+                        <div class="highlight-box">
+                            <p class="highlight-text">"We don't step forward in our own strength, but in the assurance that God goes before us, preparing the way."</p>
+                        </div>
+                    </div>
+                    <div class="story-visual">
+                        <div class="visual-card">
+                            <div class="visual-icon">🙏</div>
+                            <h3>Prayer-Centered Approach</h3>
+                            <p>Every mission begins and ends in prayer, ensuring we're aligned with God's heart and will.</p>
+                            <br>
+                            <h3>LA Mission(July, 2025) Highlights:</h3>
+                            <ul style="text-align: left; color: #6b7280;">
+                                <li>Street outreach in downtown LA</li>
+                                <li>Partnership with local shelters</li>
+                                <li>Distribution of care packages</li>
+                                <li>Prayer and encouragement ministry</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2 class="cta-title">Join Our Mission</h2>
+                <p class="cta-text">
+                    Be part of something greater than yourself. Together, we can bring hope, healing, and the love of Christ to those who need it most.
+                </p>
+                <a href="connect/connect.html" class="cta-button">Get Involved Today</a>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ================= Header2 현재 페이지 활성화 =================
+            const header2Links = document.querySelectorAll('.header2 a');
+            let currentPath = window.location.pathname;
+            currentPath = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+
+            header2Links.forEach(link => {
+                link.classList.remove('active');
+                let linkPath = link.getAttribute('href');
+                linkPath = linkPath.substring(linkPath.lastIndexOf('/') + 1);
+
+                if (linkPath === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+
+            // ================= Header1 드롭다운 애니메이션 유지 =================
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    const dropdown = item.querySelector('.dropdown');
+                    if (dropdown) {
+                        dropdown.style.display = 'block';
+                    }
+                });
+                item.addEventListener('mouseleave', () => {
+                    const dropdown = item.querySelector('.dropdown');
+                    if (dropdown) {
+                        dropdown.style.display = 'none';
+                    }
+                });
+            });
+
+            // ================= Scroll-triggered Animations =================
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe story elements
+            document.querySelectorAll('.story-text, .story-visual, .mission-card').forEach(el => {
+                observer.observe(el);
+            });
+
+            // ================= Parallax Effect for Hero =================
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const parallax = document.querySelector('.hero-section');
+                if (parallax) {
+                    const speed = scrolled * 0.5;
+                    parallax.style.transform = `translateY(${speed}px)`;
+                }
+            });
+
+            // ================= Counter Animation =================
+            const animateCounters = (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target.querySelector('.stat-number');
+                        const target = parseInt(counter.textContent);
+                        const duration = 2000;
+                        const increment = target / (duration / 16);
+                        let current = 0;
+
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                counter.textContent = target + (counter.textContent.includes('+') ? '+' : '');
+                                clearInterval(timer);
+                            } else {
+                                counter.textContent = Math.floor(current) + (counter.textContent.includes('+') ? '+' : '');
+                            }
+                        }, 16);
+
+                        counterObserver.unobserve(entry.target);
+                    }
+                });
+            };
+
+            const counterObserver = new IntersectionObserver(animateCounters, {
+                threshold: 0.5
+            });
+
+            document.querySelectorAll('.stat-card').forEach(card => {
+                counterObserver.observe(card);
+            });
+
+            // ================= Smooth scroll for CTA button =================
+            document.querySelector('.cta-button')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
