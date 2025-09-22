@@ -72,31 +72,36 @@ function createDots() {
     }
     
     // 프로그레스 바 애니메이션 함수
-    function startProgressAnimation() {
-        stopProgressAnimation(); 
-        
-        const progressFill = carouselDots.querySelector('.progress-fill');
-        if (!progressFill) return;
+    // ✅ 수정된 프로그레스 바 애니메이션 함수
+function startProgressAnimation() {
+    stopProgressAnimation(); 
+    const progressFill = carouselDots.querySelector('.progress-fill');
+    if (!progressFill) return;
 
-        progressFill.style.width = `${currentProgress}%`;
+    // currentProgress 유지 → 여기서는 초기화하지 않음
+    progressFill.style.width = `${currentProgress}%`;
 
-        const startTime = Date.now() - (slideDuration * (currentProgress / 100));
+    const stepTime = 50; // 50ms마다 갱신
+    const increment = (stepTime / slideDuration) * 100; 
 
-        progressInterval = setInterval(() => {
-            const elapsedTime = Date.now() - startTime;
-            currentProgress = (elapsedTime / slideDuration) * 100;
-            
-            if (currentProgress >= 100) {
-                currentProgress = 0; // 리셋 먼저
-                stopProgressAnimation();
+    progressInterval = setInterval(() => {
+        currentProgress += increment;
+        if (currentProgress >= 100) {
+            currentProgress = 100;
+            progressFill.style.width = "100%";
+            clearInterval(progressInterval);
+
+            setTimeout(() => {
+                currentProgress = 0;
                 const nextIndex = (currentIndex + 1) % slides.length;
                 moveToSlide(nextIndex);
-                startProgressAnimation(); 
-            } else {
-                progressFill.style.width = `${currentProgress}%`;
-            }
-        }, 16);
-    }
+                startProgressAnimation();
+            }, 100); 
+        } else {
+            progressFill.style.width = `${currentProgress}%`;
+        }
+    }, stepTime);
+}
 
     // 애니메이션 정지 함수
     function stopProgressAnimation() {
